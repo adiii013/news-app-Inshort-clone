@@ -1,10 +1,19 @@
-import { StyleSheet, Text, View ,StatusBar } from 'react-native';
-import InshortTabs from './components/InshortTabs';
+import React, { useContext } from "react";
+import { StatusBar, StyleSheet, View } from "react-native";
+import Context, { NewsContext } from "./API/Context";
+import InshortTabs from "./components/InshortTabs";
 
-export default function App() {
+function App() {
+  const { darkTheme } = useContext(NewsContext);
+
   return (
-    <View style={{...styles.container,backgroundColor:'#282C35'}}>
-      <InshortTabs></InshortTabs>
+    <View
+      style={{
+        ...styles.container,
+        backgroundColor: darkTheme ? "#282C35" : "white",
+      }}
+    >
+      <InshortTabs />
     </View>
   );
 }
@@ -12,6 +21,14 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop:StatusBar.currentHeight
+    marginTop: StatusBar.currentHeight,
   },
 });
+
+export default () => {
+  return (
+    <Context>
+      <App />
+    </Context>
+  );
+};
